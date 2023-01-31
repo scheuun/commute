@@ -119,7 +119,7 @@
         <label>전화번호&emsp;</label>
         <input type='text' id='phone' name='phone'/><br><br><br>
         <div  style="display: flex; justify-content: center;">
-              <button type='button' class='btn btn-secondary btn-block'
+              <button type='button' class='btn btn-primary btn-block'
                         id='findBtn' style="width:120">비밀번호 찾기</button>
         </div>
     </div>
@@ -131,14 +131,14 @@
         <input type='password' id='pwdChk' name='pwdChk'/><br>
         <span class="pwdChkMsg" style ="color:red;display:none;">필수 정보입니다.</span><br>
         <div  style="display: flex; justify-content: center;">
-            <button type='button' class='btn btn-secondary btn-block'
+            <button type='button' class='btn btn-primary btn-block'
                     id='changeBtn' style="width: 120" >비밀번호 변경</button>
         </div>
     </div>
     <div class='col' id='view3'  style ="display:none;text-align:center" >
         <span class="msg">비밀번호 변경 완료</span><br><br><br>
         <div  style="display: flex; justify-content: center;">
-            <button type='button' class='btn btn-secondary btn-block'
+            <button type='button' class='btn btn-primary btn-block'
                     id='mainBtn' style="width: 120" onclick="location.href='/'">메인으로</button>
         </div>
     </div>

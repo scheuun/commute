@@ -250,7 +250,7 @@ $(join)
         <tr>
             <th></th>
             <th  style="display: flex; justify-content: center;">
-                <button type='button' class='btn btn-secondary btn-block'
+                <button type='button' class='btn btn-primary btn-block'
                         id='joinBtn' style="width:120">회원가입</button>
             </th>
         </tr>
@@ -260,7 +260,7 @@ $(join)
     <div class='col' id='view2'  style ="display:none;text-align:center" >
         <h6>회원가입 완료</h6><br><br><br>
         <div  style="display: flex; justify-content: center;">
-            <button type='button' class='btn btn-secondary btn-block'
+            <button type='button' class='btn btn-primary btn-block'
                     id='mainBtn' style="width: 120" onclick="location.href='/'">메인으로</button>
         </div>
     </div>

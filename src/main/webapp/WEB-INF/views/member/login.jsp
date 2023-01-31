@@ -56,7 +56,7 @@
         <span class="pwdMsg" style ="color:red;display:none;">비밀번호를 입력해 주세요.</span><br>
         <span class="msg" style ="color:red;display:block;">${msg}</span><br>
         <div  style="display: flex; justify-content: center;">
-              <button type='submit' class='btn btn-secondary btn-block'
+              <button type='submit' class='btn btn-primary btn-block'
                         id='loginBtn' style="width:120">로그인</button>
         </div><br>
         <input id="rememberId" name="rememberId" type="checkbox"/> 아이디저장

@@ -62,7 +62,7 @@ public class MemberController {
         return cnt;
     }
 
-    @PostMapping("/member/login")
+    @PostMapping("/")
     public String loginMembers(String id, String pwd, HttpSession session, String rememberId, HttpServletResponse response, Model model) {
         String encodedPwd = memberService.login(id);
 
@@ -76,7 +76,7 @@ public class MemberController {
                 model.addAttribute("cookieId", id);
             }
 
-            return "redirect:/";
+            return "commute/work";
         } else {
             model.addAttribute("msg", "아이디와 비밀번호를 확인하세요.");
             return "member/login";

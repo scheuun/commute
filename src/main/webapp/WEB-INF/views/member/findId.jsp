@@ -49,14 +49,14 @@
         <label>전화번호&emsp;</label>
         <input type='text' id='phone' name='phone'/><br><br><br>
         <div  style="display: flex; justify-content: center;">
-              <button type='button' class='btn btn-secondary btn-block'
+              <button type='button' class='btn btn-primary btn-block'
                         id='findBtn' style="width:120">아이디 찾기</button>
         </div>
     </div>
     <div class='col' id='view2'  style ="display:none;text-align:center" >
         <span class="msg"></span><br><br><br>
         <div  style="display: flex; justify-content: center;">
-            <button type='button' class='btn btn-secondary btn-block'
+            <button type='button' class='btn btn-primary btn-block'
                     id='mainBtn' style="width: 120" onclick="location.href='/'">메인으로</button>
         </div>
     </div>

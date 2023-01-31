@@ -129,33 +129,6 @@
         display: none;
     }
 
-    .btn {
-        display: inline-block;
-        padding: 0 30px;
-        font-size: 15px;
-        font-weight: 400;
-        background: transparent;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: middle;
-        -ms-touch-action: manipulation;
-        touch-action: manipulation;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        border: 1px solid transparent;
-        text-transform: uppercase;
-        -webkit-border-radius: 0;
-        -moz-border-radius: 0;
-        border-radius: 0;
-        -webkit-transition: all 0.3s;
-        -moz-transition: all 0.3s;
-        -ms-transition: all 0.3s;
-        -o-transition: all 0.3s;
-        transition: all 0.3s;
-    }
 
     * {
         list-style: none;
@@ -177,7 +150,7 @@
 <section class="notice">
     <div class="page-title">
         <div class="container">
-            <h3>게시판</h3>
+            <h3>출퇴근등록</h3>
         </div>
 
     </div>
@@ -190,21 +163,28 @@
             </c:if>
             <c:if test="${not empty sessionScope.id}">
                 <div style="text-align: right">
-                    ${id}님 <a style='color:black' href = '<%=request.getContextPath() %>/member/logout'>로그아웃</a>
+                    <h5>${id}님 <a style='color:black' href = '<%=request.getContextPath() %>/member/logout'>로그아웃</a></h5>
                 </div>
             </c:if>
+                <button type='button' class='btn btn-primary' id='startBtn' >출근</button>
+                <button type='button' class='btn btn-primary' id='endBtn' >퇴근</button>
+                <input type='date' id='endTime' name='endTime' class="form-control" style="width: 150px; float: right;">
+                <button type='button' class='btn btn-outline-primary' id='endDate' disabled style="float: right">종료일</button>
+                <input type='date' id='startTime' name='startTime' class="form-control" style="width: 150px; float: right;">
+                <button type='button' class='btn btn-outline-primary' id='startDate' disabled style="float: right">시작일</button>
             <table class="board-table">
                 <thead>
                 <tr>
-                    <th scope="col" class="th-num">출근시간</th>
-                    <th scope="col" class="th-title">출근위치</th>
-                    <th scope="col" class="th-date">퇴근시간</th>
-                    <th scope="col" class="th-date">퇴근위치</th>
-                    <th scope="col" class="th-date">근무시간</th>
+                    <th>출근시간</th>
+                    <th>출근위치</th>
+                    <th>퇴근시간</th>
+                    <th>퇴근위치</th>
+                    <th>근무시간</th>
                 </tr>
                 </thead>
                 <tbody>
                     <tr style="width: 100rem">
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
