@@ -2,6 +2,7 @@ package com.my.commute.controller;
 
 import com.my.commute.model.Member;
 import com.my.commute.service.MemberService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -31,9 +32,7 @@ public class MemberController {
     }
 
     @GetMapping("/member/join")
-    public String join() {
-        return "member/join";
-    }
+    public String join() { return "member/join"; }
 
     @GetMapping("/member/findId")
     public String findIdView() {
@@ -43,6 +42,13 @@ public class MemberController {
     @GetMapping("/member/findPwd")
     public String findPwd() {
         return "member/findPwd";
+    }
+
+    @GetMapping("/member/myPage")
+    public String myPage(Model model, String id, HttpSession session) {
+        id = (String) session.getAttribute("id");
+        model.addAttribute("member", memberService.myPage(id));
+        return "member/myPage";
     }
 
 

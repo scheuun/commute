@@ -12,7 +12,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>LISTBOARD</title>
+    <title>WORK</title>
 </head>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <!-- Latest compiled and minified CSS -->
@@ -144,18 +144,75 @@
     }
 </style>
 <script>
+    function work () {
+        $('#startBtn').click(function () {
+
+            // var options = {
+            //     enableHighAccuracy: true,
+            //     timeout: 5000,
+            //     maximumAge: 0
+            // };
+            //
+            // function success(position) {
+            //     //좌표를 알아낼 수 있는데, 여기서 알아낸 좌표를 kakaoAPI url에 사용할 것이다.
+            //     console.log('위도 : ' + position.coords.latitude);
+            //     console.log('경도: ' + position.coords.longitude);
+            // };
+            //
+            // function error(err) {
+            //     console.warn('ERROR(' + err.code + '): ' + err.message);
+            // };
+            //
+            // navigator.geolocation.getCurrentPosition(success, error, options);
+
+
+
+
+
+            var id = $('#id').val();
+            $.ajax({
+                type: "POST",
+                url: "/startWork",
+                dataType: "json",
+                data: {
+                    id: id,
+                },
+                success: function (data) {
+                    result:data,
+                        alert("성공");
+                },
+                error: function (data) {
+                    result:data
+                    alert("실패");
+
+                },
+            });
+        });
+
+
+
+    }
+$(work)
+
 
 </script>
 <body>
+<a href="/member/myPage" style="color: #333333">마이페이지</a>
+<a href="/commute/work" style="color: #333333">출퇴근등록</a>
+<a href="" style="color: #333333">연장근무신청</a>
+<a href="" style="color: #333333">휴가신청</a>
 <section class="notice">
     <div class="page-title">
         <div class="container">
             <h3>출퇴근등록</h3>
         </div>
-
     </div>
+
+
+
     <div id="board-list">
         <div class="container">
+
             <c:if test="${empty sessionScope.id}">
                 <div style="text-align: right">
                     <a style='color:black' href = '<%=request.getContextPath() %>/member/login'>로그인</a>
@@ -166,8 +223,8 @@
                     <h5>${id}님 <a style='color:black' href = '<%=request.getContextPath() %>/member/logout'>로그아웃</a></h5>
                 </div>
             </c:if>
-                <button type='button' class='btn btn-primary' id='startBtn' >출근</button>
-                <button type='button' class='btn btn-primary' id='endBtn' >퇴근</button>
+                <button type='button' class='btn btn-primary' id='startBtn'>출근</button>
+                <button type='button' class='btn btn-primary' id='endBtn'>퇴근</button>
                 <input type='date' id='endTime' name='endTime' class="form-control" style="width: 150px; float: right;">
                 <button type='button' class='btn btn-outline-primary' id='endDate' disabled style="float: right">종료일</button>
                 <input type='date' id='startTime' name='startTime' class="form-control" style="width: 150px; float: right;">
@@ -180,10 +237,12 @@
                     <th>퇴근시간</th>
                     <th>퇴근위치</th>
                     <th>근무시간</th>
+                    <th>규정퇴근시간준수여부</th>
                 </tr>
                 </thead>
                 <tbody>
                     <tr style="width: 100rem">
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -194,6 +253,7 @@
             </table>
         </div>
     </div>
+
 </section>
 </body>
 </html>

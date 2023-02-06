@@ -39,4 +39,9 @@ public class MemberServiceImpl implements MemberService {
     public void updatePwd(Member member) {
         memberMap.updatePwd(member);
     }
+
+    @Override
+    public Member myPage(String id) {
+        return memberMap.myPage(id);
+    }
 }

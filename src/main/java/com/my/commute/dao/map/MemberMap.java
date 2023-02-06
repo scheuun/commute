@@ -9,4 +9,5 @@ public interface MemberMap {
     String findId(String phone);
     int findPwd(String id, String phone);
     void updatePwd(Member member);
+    Member myPage(String id);
 }

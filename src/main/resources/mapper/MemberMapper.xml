@@ -30,4 +30,9 @@
         set pwd = #{pwd}
         where id = #{id} and phone = #{phone}
     </select>
+
+    <select id="myPage" resultType="Member">
+        select * from members
+        where id = #{id}
+    </select>
 </mapper>
