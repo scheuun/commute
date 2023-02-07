@@ -6,7 +6,6 @@
         values (now(), #{startlocation}, #{id})
     </insert>
 
-
 <!--    <select id="login" resultType="Commute">-->
 <!--        select * from commutes-->
 <!--        where id = #{id}-->

@@ -19,7 +19,6 @@ public class CommuteController {
 
     @GetMapping("/commute/work")
     public String work(Model model, Commute commute) {
-//        model.addAttribute("commute", commute);
         return "commute/work";
     }
 
