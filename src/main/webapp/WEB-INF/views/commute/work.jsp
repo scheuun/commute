@@ -167,7 +167,38 @@
 
 
 
+            var options = {
+                enableHighAccuracy : true,
+                timeout : 5000,
+                maximumAge : 0
+            };
+            function success(pos) {
+                var crd = pos.coords;
+                console.log('위도 : ' + crd.latitude);
+                console.log('경도: ' + crd.longitude);
+                lat = crd.latitude;
+                lon = crd.longitude;
 
+                    $.ajax({
+                            url : 'https://dapi.kakao.com/v2/local/geo/coord2address.json?x=' + lon +'&y=' + lat,
+                            type : 'GET',
+                            headers : {
+                                'Authorization' : 'KakaoAK 81be5506637cd78e81104aecd18cadf2'
+                            },
+                            success : function(data) {
+                                console.log(data);
+                            },
+                        error : function(data) {
+                        console.log(data);
+                    }
+                });
+            };
+
+            function error(err) {
+                console.warn('ERROR(' + err.code + '): ' + err.message);
+            };
+
+            navigator.geolocation.getCurrentPosition(success, error, options);
 
             var id = $('#id').val();
             $.ajax({
@@ -176,6 +207,7 @@
                 dataType: "json",
                 data: {
                     id: id,
+                    startlocation: address_name
                 },
                 success: function (data) {
                     result:data,
@@ -207,8 +239,6 @@ $(work)
             <h3>출퇴근등록</h3>
         </div>
     </div>
-
-
 
     <div id="board-list">
         <div class="container">
@@ -242,12 +272,12 @@ $(work)
                 </thead>
                 <tbody>
                     <tr style="width: 100rem">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                            <td>${commute.starttime}</td>
+                            <td>${commute.startlocation}</td>
+                            <td>${commute.endtime}</td>
+                            <td>${commute.endlocation}</td>
+                            <td>${commute.starttime - commute.endtime}</td>
+                            <td></td>
                     </tr>
                 </tbody>
             </table>

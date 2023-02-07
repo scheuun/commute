@@ -4,6 +4,7 @@ import com.my.commute.model.Commute;
 import com.my.commute.service.CommuteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,8 +17,9 @@ public class CommuteController {
     @Autowired
     CommuteService commuteService;
 
-    @GetMapping
-    public String work() {
+    @GetMapping("/commute/work")
+    public String work(Model model, Commute commute) {
+//        model.addAttribute("commute", commute);
         return "commute/work";
     }
 

@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.my.commute.dao.map.CommuteMap">
     <insert id="startWork">
-        insert into commutes(starttime, startlocation, endtime, endlocation, worktime, totaltime, id)
-        values (now(), "백석", null, null, null, null, #{id})
+        insert into commutes(starttime, startlocation, id)
+        values (now(), #{startlocation}, #{id})
     </insert>
 
 
