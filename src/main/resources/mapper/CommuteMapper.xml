@@ -3,18 +3,19 @@
 <mapper namespace="com.my.commute.dao.map.CommuteMap">
     <insert id="startWork">
         insert into commutes(starttime, startlocation, id)
-        values (now(), #{startlocation}, #{id})
+        values (now(), #{startLocation}, #{id})
     </insert>
 
-<!--    <select id="login" resultType="Commute">-->
-<!--        select * from commutes-->
-<!--        where id = #{id}-->
-<!--    </select>-->
+    <select id="listWork" resultType="Commute">
+        select * from commutes
+        where id = #{id}
+    </select>
 
-<!--    <select id="endWork">-->
-<!--        update commutes-->
-<!--        set endtime = #{endtime}, endlocation = #{endlocation}, worktime = #{worktime}, totaltime = #{totaltime}-->
-<!--        where workNum = #{workNum}-->
-<!--    </select>-->
+    <update id="endWork">
+        update commutes
+        set endtime = now(), endlocation = #{endlocation}
+        where worknum in
+        (select max(worknum) from commutes)
+    </update>
 
 </mapper>

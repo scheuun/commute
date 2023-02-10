@@ -9,11 +9,11 @@ import java.time.LocalTime;
 public class Commute {
     private int workNum;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
     private String startLocation;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
     private String endLocation;
     @DateTimeFormat(pattern="kk:mm")

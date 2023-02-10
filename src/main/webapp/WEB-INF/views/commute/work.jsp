@@ -152,6 +152,7 @@
                 timeout : 5000,
                 maximumAge : 0
             };
+
             function success(pos) {
                 var crd = pos.coords;
                 console.log('위도 : ' + crd.latitude);
@@ -167,6 +168,25 @@
                             },
                             success : function(data) {
                                 console.log(data);
+                                var id = $('#id').val();
+                                var startLocation = (data.documents[0].address.address_name)
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/startWork",
+                                    dataType: "json",
+                                    data: {
+                                        id: id,
+                                        startLocation: startLocation
+                                    },
+                                    success: function (data) {
+                                        result:data
+                                    },
+                                    error: function (data) {
+                                        result:data
+                                        alert("실패");
+
+                                    },
+                                });
                             },
                         error : function(data) {
                         console.log(data);
@@ -180,25 +200,8 @@
 
             navigator.geolocation.getCurrentPosition(success, error, options);
 
-            var id = $('#id').val();
-            $.ajax({
-                type: "POST",
-                url: "/startWork",
-                dataType: "json",
-                data: {
-                    id: id,
-                    startlocation: address_name
-                },
-                success: function (data) {
-                    result:data,
-                        alert("성공");
-                },
-                error: function (data) {
-                    result:data
-                    alert("실패");
 
-                },
-            });
+
         });
 
 
@@ -225,7 +228,7 @@ $(work)
 
             <c:if test="${empty sessionScope.id}">
                 <div style="text-align: right">
-                    <a style='color:black' href = '<%=request.getContextPath() %>/member/login'>로그인</a>
+                    <a style='color:black' href = '<%=request.getContextPath() %>/'>로그인</a>
                 </div>
             </c:if>
             <c:if test="${not empty sessionScope.id}">
@@ -251,14 +254,16 @@ $(work)
                 </tr>
                 </thead>
                 <tbody>
-                    <tr style="width: 100rem">
-                            <td>${commute.starttime}</td>
-                            <td>${commute.startlocation}</td>
-                            <td>${commute.endtime}</td>
-                            <td>${commute.endlocation}</td>
-                            <td>${commute.starttime - commute.endtime}</td>
-                            <td></td>
-                    </tr>
+                    <c:forEach var="commute" items="${commute}">
+                        <tr style="width: 100rem">
+                            <td>${commute.startTime}</td>
+                            <td>${commute.startLocation}</td>
+                            <td>${commute.endTime}</td>
+                            <td>${commute.endLocation}</td>
+                            <td>?</td>
+                            <td>y</td>
+                        </tr>
+                    </c:forEach>
                 </tbody>
             </table>
         </div>

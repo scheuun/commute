@@ -82,7 +82,7 @@ public class MemberController {
                 model.addAttribute("cookieId", id);
             }
 
-            return "commute/work";
+            return "redirect:/commute/work";
         } else {
             model.addAttribute("msg", "아이디와 비밀번호를 확인하세요.");
             return "member/login";

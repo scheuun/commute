@@ -18,7 +18,10 @@ public class CommuteController {
     CommuteService commuteService;
 
     @GetMapping("/commute/work")
-    public String work(Model model, Commute commute) {
+    public String work(Model model, String id, HttpSession session) {
+        id = (String) session.getAttribute("id");
+        System.out.println(id);
+        model.addAttribute("commute", commuteService.listWork(id));
         return "commute/work";
     }
 
@@ -29,4 +32,9 @@ public class CommuteController {
         return commuteService.startWork(commute);
     }
 
+    @PostMapping("/endWork")
+    @ResponseBody
+    public void endWork(Commute commute) {
+        commuteService.endWork(commute);
+    }
 }
