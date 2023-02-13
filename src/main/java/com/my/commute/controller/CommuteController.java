@@ -20,7 +20,6 @@ public class CommuteController {
     @GetMapping("/commute/work")
     public String work(Model model, String id, HttpSession session) {
         id = (String) session.getAttribute("id");
-        System.out.println(id);
         model.addAttribute("commute", commuteService.listWork(id));
         return "commute/work";
     }

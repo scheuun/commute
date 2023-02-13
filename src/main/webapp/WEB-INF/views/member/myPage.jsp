@@ -14,13 +14,27 @@
 <head>
  <meta charset="utf-8">
 <title>MYPAGE</title>
-<script>
-</script>
+<style>
+    nav {
+        height: 75px;
+        padding: 1rem;
+        color: white;
+        background: #EBFBFF;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>
 </head>
-<a href="/member/myPage" style="color: #333333">마이페이지</a>
-<a href="/commute/work" style="color: #333333">출퇴근등록</a>
-<a href="" style="color: #333333">연장근무신청</a>
-<a href="" style="color: #333333">휴가신청</a>
+<header>
+    <nav>
+        <span><a href="/member/myPage" style="color: #333333">마이페이지</a></span>
+        <span><a href="/commute/work" style="color: #333333">출퇴근등록</a></span>
+        <span><a href="" style="color: #333333">연장근무신청</a></span>
+        <span><a href="" style="color: #333333">휴가신청</a></span>
+    </nav>
+</header>
 <body>
 <br><br><br>
 <h4 style='text-align:center;'><b>마이페이지</b></h4><hr><br>

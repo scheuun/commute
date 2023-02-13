@@ -142,10 +142,21 @@
         width: 1500px;
         margin: 0 auto;
     }
+
+    nav {
+        height: 75px;
+        padding: 1rem;
+        color: white;
+        background: #EBFBFF;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
 </style>
 <script>
-    function work () {
-        $('#startBtn').click(function () {
+    $(document).ready(function () {
+
 
             var options = {
                 enableHighAccuracy : true,
@@ -159,7 +170,7 @@
                 console.log('경도: ' + crd.longitude);
                 lat = crd.latitude;
                 lon = crd.longitude;
-
+                $('#startBtn').click(function () {
                     $.ajax({
                             url : 'https://dapi.kakao.com/v2/local/geo/coord2address.json?x=' + lon +'&y=' + lat,
                             type : 'GET',
@@ -180,49 +191,107 @@
                                     },
                                     success: function (data) {
                                         result:data
+                                        alert(data);
+                                        location.reload();
                                     },
                                     error: function (data) {
                                         result:data
-                                        alert("실패");
+                                        alert(data);
+                                        alert("출근 등록 실패");
 
                                     },
                                 });
                             },
                         error : function(data) {
                         console.log(data);
+                        alert("위치 등록 실패");
                     }
                 });
-            };
+            });
+        };
 
             function error(err) {
                 console.warn('ERROR(' + err.code + '): ' + err.message);
             };
 
             navigator.geolocation.getCurrentPosition(success, error, options);
+    });
 
+    $(document).ready(function () {
+        var options = {
+            enableHighAccuracy : true,
+            timeout : 5000,
+            maximumAge : 0
+        };
 
+        function success(pos) {
+            var crd = pos.coords;
+            console.log('위도 : ' + crd.latitude);
+            console.log('경도: ' + crd.longitude);
+            lat = crd.latitude;
+            lon = crd.longitude;
+            $('#endBtn').click(function () {
+                $.ajax({
+                    url : 'https://dapi.kakao.com/v2/local/geo/coord2address.json?x=' + lon +'&y=' + lat,
+                    type : 'GET',
+                    headers : {
+                        'Authorization' : 'KakaoAK 81be5506637cd78e81104aecd18cadf2'
+                    },
+                    success : function(data) {
+                        console.log(data);
+                        var endLocation = (data.documents[0].address.address_name)
+                        $.ajax({
+                            type: "POST",
+                            url: "/endWork",
+                            dataType: "json",
+                            data: {
+                                endLocation: endLocation
+                            },
+                            success: function (data) {
+                                result:data
+                                alert(data);
+                                location.reload();
+                            },
+                            error: function (data) {
+                                alert(data);
+                                result:data
+                                alert("퇴근 등록 실패");
 
-        });
+                            },
+                        });
+                    },
+                    error : function(data) {
+                        console.log(data);
+                        alert("위치 등록 실패");
+                    }
+                });
+            });
+        };
 
+        function error(err) {
+            console.warn('ERROR(' + err.code + '): ' + err.message);
+        };
 
-
-    }
-$(work)
+        navigator.geolocation.getCurrentPosition(success, error, options);
+    });
 
 
 </script>
 <body>
-<a href="/member/myPage" style="color: #333333">마이페이지</a>
-<a href="/commute/work" style="color: #333333">출퇴근등록</a>
-<a href="" style="color: #333333">연장근무신청</a>
-<a href="" style="color: #333333">휴가신청</a>
+<header>
+    <nav>
+        <span><a href="/member/myPage" style="color: #333333; text-decoration : none;">마이페이지</a></span>
+        <span><a href="/commute/work" style="color: #333333; text-decoration : none;">출퇴근등록</a></span>
+        <span><a href="" style="color: #333333; text-decoration : none;">연장근무신청</a></span>
+        <span><a href="" style="color: #333333; text-decoration : none;">휴가신청</a></span>
+    </nav>
+</header>
 <section class="notice">
     <div class="page-title">
         <div class="container">
             <h3>출퇴근등록</h3>
         </div>
     </div>
-
     <div id="board-list">
         <div class="container">
 
@@ -253,7 +322,7 @@ $(work)
                     <th>규정퇴근시간준수여부</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="commutes">
                     <c:forEach var="commute" items="${commute}">
                         <tr style="width: 100rem">
                             <td>${commute.startTime}</td>
