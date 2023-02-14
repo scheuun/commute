@@ -5,16 +5,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Commute {
     private int workNum;
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
-    private LocalDateTime startTime;
+    String startTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
     private String startLocation;
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
-    private LocalDateTime endTime;
+    String endTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
     private String endLocation;
     @DateTimeFormat(pattern="kk:mm")
     @JsonFormat(pattern="kk:mm", timezone="Asia/Seoul")
@@ -32,11 +29,11 @@ public class Commute {
         this.workNum = workNum;
     }
 
-    public LocalDateTime getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
@@ -48,11 +45,11 @@ public class Commute {
         this.startLocation = startLocation;
     }
 
-    public LocalDateTime getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

@@ -170,15 +170,19 @@
                 console.log('경도: ' + crd.longitude);
                 lat = crd.latitude;
                 lon = crd.longitude;
-                $('#startBtn').click(function () {
+
+
+
+
                     $.ajax({
-                            url : 'https://dapi.kakao.com/v2/local/geo/coord2address.json?x=' + lon +'&y=' + lat,
-                            type : 'GET',
-                            headers : {
-                                'Authorization' : 'KakaoAK 81be5506637cd78e81104aecd18cadf2'
-                            },
-                            success : function(data) {
-                                console.log(data);
+                        url: 'https://dapi.kakao.com/v2/local/geo/coord2address.json?x=' + lon + '&y=' + lat,
+                        type: 'GET',
+                        headers: {
+                            'Authorization': 'KakaoAK 81be5506637cd78e81104aecd18cadf2'
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            $('#startBtn').click(function () {
                                 var id = $('#id').val();
                                 var startLocation = (data.documents[0].address.address_name)
                                 $.ajax({
@@ -191,7 +195,6 @@
                                     },
                                     success: function (data) {
                                         result:data
-                                        alert(data);
                                         location.reload();
                                     },
                                     error: function (data) {
@@ -201,15 +204,38 @@
 
                                     },
                                 });
-                            },
-                        error : function(data) {
-                        console.log(data);
-                        alert("위치 등록 실패");
-                    }
-                });
-            });
-        };
+                            });
 
+                            $('#endBtn').click(function () {
+                                var endLocation = (data.documents[0].address.address_name)
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/endWork",
+                                    data: {
+                                        endLocation: endLocation
+                                    },
+                                    success: function (data) {
+                                        result:data
+                                        location.reload();
+                                    },
+                                    error: function (data) {
+                                        result:data
+                                        alert("퇴근 등록 실패");
+                                    },
+                                });
+                            })
+
+
+
+                        },
+                        error: function (data) {
+                            console.log(data);
+                            alert("위치 등록 실패");
+                        }
+                    });
+
+
+            }
             function error(err) {
                 console.warn('ERROR(' + err.code + '): ' + err.message);
             };
@@ -217,63 +243,7 @@
             navigator.geolocation.getCurrentPosition(success, error, options);
     });
 
-    $(document).ready(function () {
-        var options = {
-            enableHighAccuracy : true,
-            timeout : 5000,
-            maximumAge : 0
-        };
 
-        function success(pos) {
-            var crd = pos.coords;
-            console.log('위도 : ' + crd.latitude);
-            console.log('경도: ' + crd.longitude);
-            lat = crd.latitude;
-            lon = crd.longitude;
-            $('#endBtn').click(function () {
-                $.ajax({
-                    url : 'https://dapi.kakao.com/v2/local/geo/coord2address.json?x=' + lon +'&y=' + lat,
-                    type : 'GET',
-                    headers : {
-                        'Authorization' : 'KakaoAK 81be5506637cd78e81104aecd18cadf2'
-                    },
-                    success : function(data) {
-                        console.log(data);
-                        var endLocation = (data.documents[0].address.address_name)
-                        $.ajax({
-                            type: "POST",
-                            url: "/endWork",
-                            dataType: "json",
-                            data: {
-                                endLocation: endLocation
-                            },
-                            success: function (data) {
-                                result:data
-                                alert(data);
-                                location.reload();
-                            },
-                            error: function (data) {
-                                alert(data);
-                                result:data
-                                alert("퇴근 등록 실패");
-
-                            },
-                        });
-                    },
-                    error : function(data) {
-                        console.log(data);
-                        alert("위치 등록 실패");
-                    }
-                });
-            });
-        };
-
-        function error(err) {
-            console.warn('ERROR(' + err.code + '): ' + err.message);
-        };
-
-        navigator.geolocation.getCurrentPosition(success, error, options);
-    });
 
 
 </script>
@@ -282,7 +252,6 @@
     <nav>
         <span><a href="/member/myPage" style="color: #333333; text-decoration : none;">마이페이지</a></span>
         <span><a href="/commute/work" style="color: #333333; text-decoration : none;">출퇴근등록</a></span>
-        <span><a href="" style="color: #333333; text-decoration : none;">연장근무신청</a></span>
         <span><a href="" style="color: #333333; text-decoration : none;">휴가신청</a></span>
     </nav>
 </header>
