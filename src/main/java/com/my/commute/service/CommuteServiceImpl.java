@@ -26,4 +26,9 @@ public class CommuteServiceImpl implements CommuteService{
     public void endWork(Commute commute) {
         commuteMap.endWork(commute);
     }
+
+    @Override
+    public int chkWork(String id) {
+        return commuteMap.chkWork(id);
+    }
 }

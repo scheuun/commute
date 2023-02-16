@@ -8,4 +8,5 @@ public interface CommuteMap {
     int startWork(Commute commute);
     List<Commute> listWork(String id);
     void endWork(Commute commute);
+    int chkWork(String id);
 }

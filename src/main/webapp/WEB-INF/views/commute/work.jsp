@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%--
   Created by IntelliJ IDEA.
   User: sche1
@@ -164,6 +165,28 @@
                 maximumAge : 0
             };
 
+        function getMonday(d) {
+            d = new Date(d);
+            var day = d.getDay(),
+                diff = d.getDate() - day + (day == 0 ? -6:1);
+            return new Date(d.setDate(diff));
+        }
+
+
+        function getFriday(d) {
+            d = new Date(d);
+            var day = d.getDay(),
+                diff = d.getDate() - day + (day == 0 ? -6:5);
+            return new Date(d.setDate(diff));
+        }
+
+        document.getElementById('startDate').value = getMonday(new Date()).toISOString().substring(0, 10);
+        document.getElementById('endDate').value = (getFriday(new Date())).toISOString().substring(0, 10);
+        $('#chkBtn').click(function () {
+            console.log($('#startDate').val())
+            console.log($('#endDate').val())
+        });
+
             function success(pos) {
                 var crd = pos.coords;
                 console.log('위도 : ' + crd.latitude);
@@ -171,70 +194,98 @@
                 lat = crd.latitude;
                 lon = crd.longitude;
 
+                $.ajax({
+                    url: 'https://dapi.kakao.com/v2/local/geo/coord2address.json?x=' + lon + '&y=' + lat,
+                    type: 'GET',
+                    headers: {
+                        'Authorization': 'KakaoAK 81be5506637cd78e81104aecd18cadf2'
+                    },
+                    success: function (data) {
+                        $('#startBtn').click(function () {
+                            var id = $('#id').val();
+                            var startLocation = (data.documents[0].address.address_name)
+                            $.ajax({
+                                type:"POST",
+                                url:"/chkWork",
+                                data:{
+                                    id: id
+                                },
+                                success:function(cnt){
+                                    if(cnt == 0) {
+                                        alert("이미 출근 등록이 되어 있습니다.");
+                                    }else {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/startWork",
+                                            dataType: "json",
+                                            data: {
+                                                id: id,
+                                                startLocation: startLocation
+                                            },
+                                            success: function (data) {
+                                                result:data
+                                                location.reload();
+                                            },
+                                            error: function (data) {
+                                                result:data
+                                                alert(data);
+                                                alert("출근 등록 실패");
 
+                                            },
+                                        });
+                                    }
+                                },
+                                error: function (data) {
+                                    result:data
+                                    alert("출근 등록 에러");
 
-
-                    $.ajax({
-                        url: 'https://dapi.kakao.com/v2/local/geo/coord2address.json?x=' + lon + '&y=' + lat,
-                        type: 'GET',
-                        headers: {
-                            'Authorization': 'KakaoAK 81be5506637cd78e81104aecd18cadf2'
-                        },
-                        success: function (data) {
-                            console.log(data);
-                            $('#startBtn').click(function () {
-                                var id = $('#id').val();
-                                var startLocation = (data.documents[0].address.address_name)
-                                $.ajax({
-                                    type: "POST",
-                                    url: "/startWork",
-                                    dataType: "json",
-                                    data: {
-                                        id: id,
-                                        startLocation: startLocation
-                                    },
-                                    success: function (data) {
-                                        result:data
-                                        location.reload();
-                                    },
-                                    error: function (data) {
-                                        result:data
-                                        alert(data);
-                                        alert("출근 등록 실패");
-
-                                    },
-                                });
+                                },
                             });
+                        });
 
-                            $('#endBtn').click(function () {
-                                var endLocation = (data.documents[0].address.address_name)
-                                $.ajax({
-                                    type: "POST",
-                                    url: "/endWork",
-                                    data: {
-                                        endLocation: endLocation
-                                    },
-                                    success: function (data) {
-                                        result:data
-                                        location.reload();
-                                    },
-                                    error: function (data) {
-                                        result:data
-                                        alert("퇴근 등록 실패");
-                                    },
-                                });
-                            })
+                        $('#endBtn').click(function () {
+                            var id = $('#id').val();
+                            var endLocation = (data.documents[0].address.address_name)
+                            $.ajax({
+                                type:"POST",
+                                url:"/chkWork",
+                                data:{
+                                    id: id
+                                },
+                                success:function(cnt){
+                                    if(cnt > 0) {
+                                        alert("정상 출근이 되어있지 않습니다.");
+                                    }else {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/endWork",
+                                            data: {
+                                                endLocation: endLocation
+                                            },
+                                            success: function (data) {
+                                                result:data
+                                                location.reload();
+                                            },
+                                            error: function (data) {
+                                                result:data
+                                                alert("퇴근 등록 실패");
+                                            },
+                                        });
+                                    }
+                                },
+                                error: function (data) {
+                                    result:data
+                                    alert("출근 등록 에러");
 
-
-
-                        },
-                        error: function (data) {
-                            console.log(data);
-                            alert("위치 등록 실패");
-                        }
-                    });
-
-
+                                },
+                            });
+                        })
+                    },
+                    error: function (data) {
+                        console.log(data);
+                        alert("위치 등록 실패");
+                    }
+                });
             }
             function error(err) {
                 console.warn('ERROR(' + err.code + '): ' + err.message);
@@ -242,10 +293,6 @@
 
             navigator.geolocation.getCurrentPosition(success, error, options);
     });
-
-
-
-
 </script>
 <body>
 <header>
@@ -276,10 +323,11 @@
             </c:if>
                 <button type='button' class='btn btn-primary' id='startBtn'>출근</button>
                 <button type='button' class='btn btn-primary' id='endBtn'>퇴근</button>
-                <input type='date' id='endTime' name='endTime' class="form-control" style="width: 150px; float: right;">
-                <button type='button' class='btn btn-outline-primary' id='endDate' disabled style="float: right">종료일</button>
-                <input type='date' id='startTime' name='startTime' class="form-control" style="width: 150px; float: right;">
-                <button type='button' class='btn btn-outline-primary' id='startDate' disabled style="float: right">시작일</button>
+                <button type='button' class='btn btn-primary' id="chkBtn" style="float: right">조회</button>
+                <input type='date' id='endDate' name='endDate' class="form-control" style="width: 150px; float: right;">
+                <button type='button' class='btn btn-outline-primary' disabled style="float: right">종료일</button>
+                <input type='date' id='startDate' name='startDate' class="form-control" style="width: 150px; float: right;">
+                <button type='button' class='btn btn-outline-primary' disabled style="float: right">시작일</button>
             <table class="board-table">
                 <thead>
                 <tr>
@@ -288,6 +336,7 @@
                     <th>퇴근시간</th>
                     <th>퇴근위치</th>
                     <th>근무시간</th>
+                    <th>근무형태</th>
                     <th>규정퇴근시간준수여부</th>
                 </tr>
                 </thead>
@@ -298,8 +347,9 @@
                             <td>${commute.startLocation}</td>
                             <td>${commute.endTime}</td>
                             <td>${commute.endLocation}</td>
+                            <td></td>
                             <td>?</td>
-                            <td>y</td>
+                            <td></td>
                         </tr>
                     </c:forEach>
                 </tbody>

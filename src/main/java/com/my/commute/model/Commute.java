@@ -3,15 +3,14 @@ package com.my.commute.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 public class Commute {
     private int workNum;
-    String startTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+    private String startTime;
     private String startLocation;
-    String endTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+    private String endTime;
     private String endLocation;
     @DateTimeFormat(pattern="kk:mm")
     @JsonFormat(pattern="kk:mm", timezone="Asia/Seoul")
@@ -20,6 +19,8 @@ public class Commute {
     @JsonFormat(pattern="kk:mm", timezone="Asia/Seoul")
     private LocalTime totalTime;
     private String id;
+    private String startDate;
+    private String endDate;
 
     public int getWorkNum() {
         return workNum;
@@ -83,5 +84,21 @@ public class Commute {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 }

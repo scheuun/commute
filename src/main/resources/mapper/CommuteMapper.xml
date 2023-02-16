@@ -9,7 +9,14 @@
     <select id="listWork" resultType="Commute">
         select * from commutes
         where id = #{id}
+--         and DATE(starttime) BETWEEN #{startDate} AND #{endDate}
         order by worknum desc
+    </select>
+
+    <select id="chkWork" resultType="integer">
+        select count(endlocation) from commutes
+        where worknum in
+        (select max(worknum) from commutes);
     </select>
 
     <update id="endWork">
