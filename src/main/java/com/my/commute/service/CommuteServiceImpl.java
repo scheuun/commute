@@ -18,8 +18,8 @@ public class CommuteServiceImpl implements CommuteService{
     }
 
     @Override
-    public List<Commute> listWork(String id) {
-        return commuteMap.listWork(id);
+    public List<Commute> listWork(String id, String startDate, String endDate) {
+        return commuteMap.listWork(id, startDate, endDate);
     }
 
     @Override

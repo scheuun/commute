@@ -157,13 +157,13 @@
 </style>
 <script>
     $(document).ready(function () {
-
-
             var options = {
                 enableHighAccuracy : true,
                 timeout : 5000,
                 maximumAge : 0
             };
+
+
 
         function getMonday(d) {
             d = new Date(d);
@@ -181,10 +181,43 @@
         }
 
         document.getElementById('startDate').value = getMonday(new Date()).toISOString().substring(0, 10);
-        document.getElementById('endDate').value = (getFriday(new Date())).toISOString().substring(0, 10);
+        document.getElementById('endDate').value = getFriday(new Date()).toISOString().substring(0, 10);
+
+        // dateFrm.submit();
+
+
+        // var id = $('#id').val();
+        // var startDate = $('#startDate').val();
+        // var endDate = $('#endDate').val();
+
+        // $.ajax({
+        //     type: "POST",
+        //     url: "/commute/work",
+        //     dataType: "json",
+        //     data: {
+        //         id: id,
+        //         startDate: startDate,
+        //         endDate: endDate
+        //     },
+        //     success: function (data) {
+        //         result:data
+        //         location.reload();
+        //     },
+        //     error: function (data) {
+        //         result:data
+        //         alert(startDate);
+        //         alert(endDate);
+        //         alert("조회 실패");
+        //     },
+        // });
+
+
         $('#chkBtn').click(function () {
-            console.log($('#startDate').val())
-            console.log($('#endDate').val())
+;           var startDate = $('#startDate').val();
+            var endDate = $('#endDate').val();
+            dateFrm.submit();
+            document.getElementById('startDate').value = startDate;
+            document.getElementById('endDate').value = endDate;
         });
 
             function success(pos) {
@@ -323,11 +356,13 @@
             </c:if>
                 <button type='button' class='btn btn-primary' id='startBtn'>출근</button>
                 <button type='button' class='btn btn-primary' id='endBtn'>퇴근</button>
+            <form name='dateFrm'method="post" action="work">
                 <button type='button' class='btn btn-primary' id="chkBtn" style="float: right">조회</button>
                 <input type='date' id='endDate' name='endDate' class="form-control" style="width: 150px; float: right;">
                 <button type='button' class='btn btn-outline-primary' disabled style="float: right">종료일</button>
                 <input type='date' id='startDate' name='startDate' class="form-control" style="width: 150px; float: right;">
-                <button type='button' class='btn btn-outline-primary' disabled style="float: right">시작일</button>
+                <button type='submit' class='btn btn-outline-primary' disabled style="float: right">시작일</button>
+            </form>
             <table class="board-table">
                 <thead>
                 <tr>

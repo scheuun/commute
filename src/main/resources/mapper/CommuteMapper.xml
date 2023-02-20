@@ -9,7 +9,7 @@
     <select id="listWork" resultType="Commute">
         select * from commutes
         where id = #{id}
---         and DATE(starttime) BETWEEN #{startDate} AND #{endDate}
+        and DATE(starttime) BETWEEN #{startDate} AND #{endDate}
         order by worknum desc
     </select>
 
