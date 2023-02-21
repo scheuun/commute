@@ -163,61 +163,36 @@
                 maximumAge : 0
             };
 
+            // function getMonday(d) {
+            //     d = new Date(d);
+            //     var day = d.getDay(),
+            //         diff = d.getDate() - day + (day == 0 ? -6:1);
+            //     return new Date(d.setDate(diff));
+            // }
+            //
+            //
+            // function getFriday(d) {
+            //     d = new Date(d);
+            //     var day = d.getDay(),
+            //         diff = d.getDate() - day + (day == 0 ? -6:5);
+            //     return new Date(d.setDate(diff));
+            // }
+            //
+            // document.getElementById('startDate').value = getMonday(new Date()).toISOString().substring(0, 10);
+        // document.getElementById('startDate').value
+            // document.getElementById('endDate').value = getFriday(new Date()).toISOString().substring(0, 10);
 
 
-        function getMonday(d) {
-            d = new Date(d);
-            var day = d.getDay(),
-                diff = d.getDate() - day + (day == 0 ? -6:1);
-            return new Date(d.setDate(diff));
-        }
 
 
-        function getFriday(d) {
-            d = new Date(d);
-            var day = d.getDay(),
-                diff = d.getDate() - day + (day == 0 ? -6:5);
-            return new Date(d.setDate(diff));
-        }
 
-        document.getElementById('startDate').value = getMonday(new Date()).toISOString().substring(0, 10);
-        document.getElementById('endDate').value = getFriday(new Date()).toISOString().substring(0, 10);
-
-        // dateFrm.submit();
-
-
-        // var id = $('#id').val();
-        // var startDate = $('#startDate').val();
-        // var endDate = $('#endDate').val();
-
-        // $.ajax({
-        //     type: "POST",
-        //     url: "/commute/work",
-        //     dataType: "json",
-        //     data: {
-        //         id: id,
-        //         startDate: startDate,
-        //         endDate: endDate
-        //     },
-        //     success: function (data) {
-        //         result:data
-        //         location.reload();
-        //     },
-        //     error: function (data) {
-        //         result:data
-        //         alert(startDate);
-        //         alert(endDate);
-        //         alert("조회 실패");
-        //     },
-        // });
 
 
         $('#chkBtn').click(function () {
-;           var startDate = $('#startDate').val();
+;           var id = $('#id').val();
+            var startDate = $('#startDate').val();
             var endDate = $('#endDate').val();
             dateFrm.submit();
-            document.getElementById('startDate').value = startDate;
-            document.getElementById('endDate').value = endDate;
         });
 
             function success(pos) {
@@ -358,10 +333,10 @@
                 <button type='button' class='btn btn-primary' id='endBtn'>퇴근</button>
             <form name='dateFrm'method="post" action="work">
                 <button type='button' class='btn btn-primary' id="chkBtn" style="float: right">조회</button>
-                <input type='date' id='endDate' name='endDate' class="form-control" style="width: 150px; float: right;">
+<%--                <input type='date' id='endDate' name='endDate' value="${commute.endDate}" class="form-control" style="width: 150px; float: right;">--%>
                 <button type='button' class='btn btn-outline-primary' disabled style="float: right">종료일</button>
-                <input type='date' id='startDate' name='startDate' class="form-control" style="width: 150px; float: right;">
-                <button type='submit' class='btn btn-outline-primary' disabled style="float: right">시작일</button>
+<%--                <input type='date' id='startDate' name='startDate' value="${commute.startDate}" class="form-control" style="width: 150px; float: right;">--%>
+                <button type='button' class='btn btn-outline-primary' disabled style="float: right">시작일</button>
             </form>
             <table class="board-table">
                 <thead>
