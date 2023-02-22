@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%--
   Created by IntelliJ IDEA.
   User: sche1
@@ -163,31 +163,6 @@
                 maximumAge : 0
             };
 
-            // function getMonday(d) {
-            //     d = new Date(d);
-            //     var day = d.getDay(),
-            //         diff = d.getDate() - day + (day == 0 ? -6:1);
-            //     return new Date(d.setDate(diff));
-            // }
-            //
-            //
-            // function getFriday(d) {
-            //     d = new Date(d);
-            //     var day = d.getDay(),
-            //         diff = d.getDate() - day + (day == 0 ? -6:5);
-            //     return new Date(d.setDate(diff));
-            // }
-            //
-            // document.getElementById('startDate').value = getMonday(new Date()).toISOString().substring(0, 10);
-        // document.getElementById('startDate').value
-            // document.getElementById('endDate').value = getFriday(new Date()).toISOString().substring(0, 10);
-
-
-
-
-
-
-
         $('#chkBtn').click(function () {
 ;           var id = $('#id').val();
             var startDate = $('#startDate').val();
@@ -201,6 +176,8 @@
                 console.log('경도: ' + crd.longitude);
                 lat = crd.latitude;
                 lon = crd.longitude;
+
+
 
                 $.ajax({
                     url: 'https://dapi.kakao.com/v2/local/geo/coord2address.json?x=' + lon + '&y=' + lat,
@@ -329,13 +306,14 @@
                     <h5>${id}님 <a style='color:black' href = '<%=request.getContextPath() %>/member/logout'>로그아웃</a></h5>
                 </div>
             </c:if>
+            <form name='dateFrm'method="post" action="work">
                 <button type='button' class='btn btn-primary' id='startBtn'>출근</button>
                 <button type='button' class='btn btn-primary' id='endBtn'>퇴근</button>
-            <form name='dateFrm'method="post" action="work">
+
                 <button type='button' class='btn btn-primary' id="chkBtn" style="float: right">조회</button>
-<%--                <input type='date' id='endDate' name='endDate' value="${commute.endDate}" class="form-control" style="width: 150px; float: right;">--%>
+                <input type='date' id='endDate' name='endDate' value="${endDate}" class="form-control" style="width: 150px; float: right;">
                 <button type='button' class='btn btn-outline-primary' disabled style="float: right">종료일</button>
-<%--                <input type='date' id='startDate' name='startDate' value="${commute.startDate}" class="form-control" style="width: 150px; float: right;">--%>
+                <input type='date' id='startDate' name='startDate' value="${startDate}" class="form-control" style="width: 150px; float: right;">
                 <button type='button' class='btn btn-outline-primary' disabled style="float: right">시작일</button>
             </form>
             <table class="board-table">
@@ -353,20 +331,28 @@
                 <tbody id="commutes">
                     <c:forEach var="commute" items="${commute}">
                         <tr style="width: 100rem">
-                            <td>${commute.startTime}</td>
+                            <td id="startTime">${commute.startTime}</td>
                             <td>${commute.startLocation}</td>
                             <td>${commute.endTime}</td>
                             <td>${commute.endLocation}</td>
-                            <td></td>
-                            <td>?</td>
-                            <td></td>
+                            <c:choose>
+                            <c:when test="${fn:substring(commute.workTime, 6, 8)>9}">
+                                <td id="workTime" style="color: red">${fn:substring(commute.workTime, 6, 8)}시간 00분</td>
+                                <td></td>
+                                <td style="color: red">미준수</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td id="workTime">${fn:substring(commute.workTime, 6, 8)}시간 00분</td>
+                                <td></td>
+                                <td>준수</td>
+                            </c:otherwise>
+                            </c:choose>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
         </div>
     </div>
-
 </section>
 </body>
 </html>

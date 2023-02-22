@@ -36,7 +36,7 @@ public class CommuteController {
         endDate = sdf.format(cal.getTime());
 
         id = (String) session.getAttribute("id");
-//        Member member = memberService.myPage(id);
+        Member member = memberService.myPage(id);
 
         if (httpServletRequest.getParameter("startDate") != null && httpServletRequest.getParameter("endDate") != null) {
             startDate = httpServletRequest.getParameter("startDate");
@@ -44,8 +44,13 @@ public class CommuteController {
 
         }
 
-        List<Commute> commute = commuteService.listWork(id, startDate, endDate);
-        model.addAttribute("commute", commute);
+        System.out.println(member.getStartWork());
+        System.out.println(member.getEndWork());
+        model.addAttribute("commute", commuteService.listWork(id, startDate, endDate));
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+        model.addAttribute("startWork", member.getStartWork());
+        model.addAttribute("endWork", member.getEndWork());
 
         return "commute/work";
     }
