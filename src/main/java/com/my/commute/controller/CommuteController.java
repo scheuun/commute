@@ -41,16 +41,15 @@ public class CommuteController {
         if (httpServletRequest.getParameter("startDate") != null && httpServletRequest.getParameter("endDate") != null) {
             startDate = httpServletRequest.getParameter("startDate");
             endDate = httpServletRequest.getParameter("endDate");
-
         }
 
-        System.out.println(member.getStartWork());
-        System.out.println(member.getEndWork());
         model.addAttribute("commute", commuteService.listWork(id, startDate, endDate));
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
         model.addAttribute("startWork", member.getStartWork());
         model.addAttribute("endWork", member.getEndWork());
+        model.addAttribute("startWork", member.getStartWork());
+        model.addAttribute("endWork", member.getEndWork().plusHours(2));
 
         return "commute/work";
     }

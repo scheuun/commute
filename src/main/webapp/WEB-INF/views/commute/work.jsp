@@ -331,22 +331,33 @@
                 <tbody id="commutes">
                     <c:forEach var="commute" items="${commute}">
                         <tr style="width: 100rem">
-                            <td id="startTime">${commute.startTime}</td>
-                            <td>${commute.startLocation}</td>
-                            <td>${commute.endTime}</td>
-                            <td>${commute.endLocation}</td>
-                            <c:choose>
-                            <c:when test="${fn:substring(commute.workTime, 6, 8)>9}">
-                                <td id="workTime" style="color: red">${fn:substring(commute.workTime, 6, 8)}시간 00분</td>
-                                <td></td>
-                                <td style="color: red">미준수</td>
-                            </c:when>
-                            <c:otherwise>
-                                <td id="workTime">${fn:substring(commute.workTime, 6, 8)}시간 00분</td>
-                                <td></td>
+                            <c:if test="${fn:substring(commute.startTime, 11, 16) > startWork}">
+                                <td style="color: red"><b>${commute.startTime}</b></td>
+                            </c:if>
+                            <c:if test="${fn:substring(commute.startTime, 11, 16) <= startWork}">
+                                <td>${commute.startTime}</td>
+                            </c:if>
+                                <td>${commute.startLocation}</td>
+                            <c:if test="${fn:substring(commute.endTime, 11, 16) > endWork}">
+                                <td style="color: red"><b>${commute.endTime}</b></td>
+                            </c:if>
+                            <c:if test="${fn:substring(commute.endTime, 11, 16) <= endWork}">
+                                <td>${commute.endTime}</td>
+                            </c:if>
+                                <td>${commute.endLocation}</td>
+                                <td>${commute.workTime}</td>
+                            <c:if test="${fn:substring(commute.startTime, 11, 16) > startWork}">
+                                <td>지각</td>
+                            </c:if>
+                            <c:if test="${fn:substring(commute.startTime, 11, 16) <= startWork}">
+                                <td>정시</td>
+                            </c:if>
+                            <c:if test="${fn:substring(commute.endTime, 11, 16) > endWork}">
+                                <td>미준수</td>
+                            </c:if>
+                            <c:if test="${fn:substring(commute.endTime, 11, 16) <= endWork}">
                                 <td>준수</td>
-                            </c:otherwise>
-                            </c:choose>
+                            </c:if>
                         </tr>
                     </c:forEach>
                 </tbody>

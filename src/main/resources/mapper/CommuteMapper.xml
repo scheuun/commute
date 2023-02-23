@@ -21,7 +21,7 @@
 
     <update id="endWork">
         update commutes
-        set endtime = now(), endlocation = #{endLocation}, worktime = TIMESTAMPDIFF(hour, starttime, endtime)-1
+        set endtime = now(), endlocation = #{endLocation}, worktime = TIMEDIFF(DATE_SUB(endtime, INTERVAL 1 HOUR), starttime)
         order by worknum desc limit 1;
     </update>
 </mapper>
