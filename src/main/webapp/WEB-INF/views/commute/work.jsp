@@ -329,6 +329,7 @@
                 </tr>
                 </thead>
                 <tbody id="commutes">
+                <c:set var = "sum" value = "0" />
                     <c:forEach var="commute" items="${commute}">
                         <tr style="width: 100rem">
                             <c:if test="${fn:substring(commute.startTime, 11, 16) > startWork}">
