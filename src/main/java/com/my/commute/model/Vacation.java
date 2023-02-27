@@ -9,13 +9,14 @@ public class Vacation {
     private int vacNum;
     @DateTimeFormat(pattern="yyyy-MM-dd")
     @JsonFormat(pattern="yyyy-MM-dd", timezone="Asia/Seoul")
-    private LocalDate regDate;
+    private LocalDate reqDate;
     @DateTimeFormat(pattern="yyyy-MM-dd")
     @JsonFormat(pattern="yyyy-MM-dd", timezone="Asia/Seoul")
     private LocalDate vacDate;
     private String reason;
     private String agree;
-    private String approver;
+    private float day;
+    private float totalVac;
     private String id;
 
     public int getVacNum() {
@@ -26,12 +27,12 @@ public class Vacation {
         this.vacNum = vacNum;
     }
 
-    public LocalDate getRegDate() {
-        return regDate;
+    public LocalDate getReqDate() {
+        return reqDate;
     }
 
-    public void setRegDate(LocalDate regDate) {
-        this.regDate = regDate;
+    public void setReqDate(LocalDate reqDate) {
+        this.reqDate = reqDate;
     }
 
     public LocalDate getVacDate() {
@@ -58,12 +59,20 @@ public class Vacation {
         this.agree = agree;
     }
 
-    public String getApprover() {
-        return approver;
+    public float getDay() {
+        return day;
     }
 
-    public void setApprover(String approver) {
-        this.approver = approver;
+    public void setDay(float day) {
+        this.day = day;
+    }
+
+    public float getTotalVac() {
+        return totalVac;
+    }
+
+    public void setTotalVac(float totalVac) {
+        this.totalVac = totalVac;
     }
 
     public String getId() {

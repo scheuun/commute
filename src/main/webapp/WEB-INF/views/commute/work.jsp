@@ -284,7 +284,7 @@
     <nav>
         <span><a href="/member/myPage" style="color: #333333; text-decoration : none;">마이페이지</a></span>
         <span><a href="/commute/work" style="color: #333333; text-decoration : none;">출퇴근등록</a></span>
-        <span><a href="" style="color: #333333; text-decoration : none;">휴가신청</a></span>
+        <span><a href="/commute/vacation" style="color: #333333; text-decoration : none;">휴가신청</a></span>
     </nav>
 </header>
 <section class="notice">
