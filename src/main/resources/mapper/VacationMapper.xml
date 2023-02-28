@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.commute.dao.map.VacationMap">
+    <select id="listVac" resultType="Vacation">
+        select * from vacations
+        where id = #{id}
+        order by vacnum desc
+    </select>
+
+    <insert id="regVac">
+        insert into vacations(reqdate, vacdate, reason, day, id)
+        values (now(), #{vacDate}, #{reason}, #{day}, #{id})
+    </insert>
+
+    <delete id="cancelVac">
+        delete from vacations
+        where vacnum = #{vacNum};
+    </delete>
+</mapper>

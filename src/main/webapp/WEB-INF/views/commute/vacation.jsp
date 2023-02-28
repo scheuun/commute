@@ -186,6 +186,16 @@
                     },
                 });
             }
+
+            function cancelVac (obj) {
+                console.log(obj);
+                $.ajax({
+                    url: '/cancelVac/' + $('#reviewNum').val(),
+                    method: 'post'
+                })
+
+
+            }
         });
     });
 </script>
@@ -248,7 +258,7 @@
                             <td>${vacation.reason}</td>
                             <td>${vacation.agree}</td>
                             <c:if test="${vacation.agree == '미승인'}">
-                                <td style="color: red">취소</td>
+                                <td ><a href="javascript:void(0);" onclick="cancelVac(this)" style="color: red">취소</a><input id="vacNum" value="${vacation.vacNum}" type="text"></td>
                             </c:if>
                         </tr>
                     </c:forEach>
