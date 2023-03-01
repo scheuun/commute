@@ -13,7 +13,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>VACATION</title>
+    <title>ADMIN</title>
 </head>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <!-- Latest compiled and minified CSS -->
@@ -157,44 +157,11 @@
 </style>
 <script>
     $(document).ready(function () {
-        $('#regBtn').click(function (){
-
-            var vacDate = $('#vacDate').val();
-            var day = $('#day').val();
-            var reason = $('#reason').val();
-
-            if(vacDate.length == 0 || day.length == 0 || reason.length == 0) {
-                alert("휴가 신청 정보를 확인해 주세요")
-            } else {
-                $.ajax({
-                    type:"POST",
-                    url: "/regVac",
-                    dataType:"json",
-                    data: {
-                        vacDate: vacDate,
-                        day: day,
-                        reason: reason,
-                    },
-                    success : function (data) {
-                        result:data,
-                        location.reload();
-                    },
-                    error: function (data) {
-                        result:data
-                        alert("휴가신청 실패");
-
-                    },
-                });
-            }
+        $('#chkBtn').click(function () {
+            var id = $('#id').val();
+            // myPageFrm.submit();
+            alert(id)
         });
-
-        $('#cancelVac').click(function (){
-            $.ajax({
-                url: '/cancelVac/' + $('#vacNum').val(),
-                method: 'post'
-            });
-            location.reload();
-        })
     });
 </script>
 <body>
@@ -208,12 +175,11 @@
 <section class="notice">
     <div class="page-title">
         <div class="container">
-            <h3>휴가신청</h3>
+            <h3>관리자 페이지</h3>
         </div>
     </div>
     <div id="board-list">
         <div class="container">
-
             <c:if test="${empty sessionScope.id}">
                 <div style="text-align: right">
                     <a style='color:black' href = '<%=request.getContextPath() %>/'>로그인</a>
@@ -224,48 +190,33 @@
                     <h5>${id}님 <a style='color:black' href = '<%=request.getContextPath() %>/member/logout'>로그아웃</a></h5>
                 </div>
             </c:if>
-            <button type='button' class='btn btn-outline-primary' disabled style="float: left" >일자</button>
-            <input type='date' id='vacDate' name='vacDate' class="form-control" style="width: 15%; float: left">
-            <button type='button' class='btn btn-outline-primary' disabled style="float: left">타입</button>
-            <select id='day' style="width: 15%; height: 36px; float: left">
-                <option value='' selected>-- 선택 --</option>
-                <option value='1'>휴무</option>
-                <option value='0.5'>오전반차</option>
-                <option value='0.5'>오후반차</option>
-            </select>
-            <button type='button' class='btn btn-outline-primary' disabled style="float: left">사유</button>
-            <input type='text' id='reason' name='reason' class="form-control" style="width: 35%; float: left">
-            <button type='button' class='btn btn-primary' id="regBtn" style="float:right;">신청</button>
             <table class="board-table">
                 <thead>
                 <tr>
-                    <th>요청일자</th>
-                    <th>휴가일자</th>
-                    <th>신청일수</th>
-                    <th>사유</th>
-                    <th>승인유뮤</th>
-                    <th></th>
+                    <th>이름</th>
+                    <th>아이디</th>
+                    <th>전화번호</th>
+                    <th>부서</th>
+                    <th>직급</th>
+                    <th>입사일자</th>
                 </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="vacation" items="${vacation}">
+                    <c:forEach var="admin" items="${admin}">
+                        <form name='myPageFrm'method="post" action="/member/mypage">
                         <tr style="width: 100rem">
-                            <td>${vacation.reqDate}</td>
-                            <td>${vacation.vacDate}</td>
-                            <td>${vacation.day}</td>
-                            <td>${vacation.reason}</td>
-                            <td>${vacation.agree}</td>
-                            <c:if test="${vacation.agree == '미승인'}">
-                                <td><a href="javascript:void(0);" id="cancelVac" style="color: red">취소</a><input id="vacNum" type="hidden" value="${vacation.vacNum}"/></td>
-                            </c:if>
-                            <c:if test="${vacation.agree == '승인'}">
-                                <td></td>
-                            </c:if>
+                            <td>${admin.name}</td>
+                            <td id="id">${admin.id}<input type="text" value="${admin.id}"></td>
+                            <td>${admin.phone}</td>
+                            <td>${admin.department}</td>
+                            <td>${admin.position}</td>
+                            <td>${admin.regDate}</td>
+                            <td><button type='button' id="chkBtn" class='btn btn-primary'>조회</button></td>
                         </tr>
+                        </form>
                     </c:forEach>
                 </tbody>
             </table>
-            <h5><b>총 휴가일수: ${cntVac}</b></h5>
         </div>
     </div>
 </section>

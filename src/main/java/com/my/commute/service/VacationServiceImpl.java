@@ -26,4 +26,9 @@ public class VacationServiceImpl implements VacationService {
     public void cancelVac(int vacNum) {
         vacationMap.cancelVac(vacNum);
     }
+
+    @Override
+    public float cntVac(String id) {
+        return vacationMap.cntVac(id);
+    }
 }

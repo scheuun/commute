@@ -2,7 +2,6 @@ package com.my.commute.controller;
 
 import com.my.commute.model.Member;
 import com.my.commute.service.MemberService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -10,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -44,13 +44,26 @@ public class MemberController {
         return "member/findPwd";
     }
 
-    @GetMapping("/member/myPage")
-    public String myPage(Model model, String id, HttpSession session) {
-        id = (String) session.getAttribute("id");
+    @RequestMapping(value="/member/myPage" , method = {RequestMethod.GET, RequestMethod.POST})
+    public String myPage(Model model, String id, HttpSession session, HttpServletRequest httpServletRequest) {
+//        id = (String) session.getAttribute("id");
+//
+//        if (httpServletRequest.getParameter("id") != null) {
+//            id = httpServletRequest.getParameter("id");
+//        }
+
+        id = httpServletRequest.getParameter("id") != null?httpServletRequest.getParameter("id"):(String) session.getAttribute("id");
+
+        System.out.println(httpServletRequest.getParameter("id"));
         model.addAttribute("member", memberService.myPage(id));
         return "member/myPage";
     }
 
+    @GetMapping("/member/admin")
+    public String admin(Model model) {
+        model.addAttribute("admin", memberService.admMember());
+        return "member/admin";
+    }
 
     @PostMapping("/join")
     @ResponseBody
@@ -82,7 +95,7 @@ public class MemberController {
                 model.addAttribute("cookieId", id);
             }
 
-            return "redirect:/commute/work";
+            return id.equals("admin")?"redirect:/member/admin":"redirect:/commute/work";
         } else {
             model.addAttribute("msg", "아이디와 비밀번호를 확인하세요.");
             return "member/login";

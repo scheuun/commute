@@ -35,4 +35,8 @@
         select * from members
         where id = #{id}
     </select>
+
+    <select id="admMember" resultType="Member">
+        select * from members
+    </select>
 </mapper>

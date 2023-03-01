@@ -164,7 +164,7 @@
             };
 
         $('#chkBtn').click(function () {
-;           var id = $('#id').val();
+            var id = $('#id').val();
             var startDate = $('#startDate').val();
             var endDate = $('#endDate').val();
             dateFrm.submit();

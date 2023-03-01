@@ -1,6 +1,8 @@
 package com.my.commute.controller;
 
+import com.my.commute.model.Member;
 import com.my.commute.model.Vacation;
+import com.my.commute.service.MemberService;
 import com.my.commute.service.VacationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,10 +19,16 @@ public class VacationController {
     @Autowired
     VacationService vacationService;
 
+    @Autowired
+    MemberService memberService;
+
     @GetMapping("/commute/vacation")
     public String vacation(Model model, String id, HttpSession session) {
         id = (String) session.getAttribute("id");
+
         model.addAttribute("vacation", vacationService.listVac(id));
+        model.addAttribute("cntVac", vacationService.cntVac(id));
+
         return "commute/vacation";
     }
 

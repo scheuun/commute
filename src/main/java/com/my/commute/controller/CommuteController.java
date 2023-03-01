@@ -21,6 +21,7 @@ public class CommuteController {
 
     @Autowired
     CommuteService commuteService;
+
     @Autowired
     MemberService memberService;
 

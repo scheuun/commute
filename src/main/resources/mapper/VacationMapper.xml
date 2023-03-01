@@ -16,4 +16,10 @@
         delete from vacations
         where vacnum = #{vacNum};
     </delete>
+
+    <select id="cntVac" resultType="Float">
+        select totalvac - sum(day)
+        from vacations
+        where id = #{id} and agree = '승인';
+    </select>
 </mapper>

@@ -8,4 +8,5 @@ public interface VacationMap {
     List<Vacation> listVac(String id);
     int regVac(Vacation vacation);
     void cancelVac(int vacNum);
+    float cntVac(String id);
 }

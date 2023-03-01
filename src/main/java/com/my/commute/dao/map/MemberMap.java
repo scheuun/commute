@@ -2,6 +2,8 @@ package com.my.commute.dao.map;
 
 import com.my.commute.model.Member;
 
+import java.util.List;
+
 public interface MemberMap {
     int joinMember(Member member);
     int idCheck(String id);
@@ -10,4 +12,5 @@ public interface MemberMap {
     int findPwd(String id, String phone);
     void updatePwd(Member member);
     Member myPage(String id);
+    List<Member> admMember();
 }

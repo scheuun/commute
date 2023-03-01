@@ -5,6 +5,8 @@ import com.my.commute.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MemberServiceImpl implements MemberService {
     @Autowired
@@ -43,5 +45,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member myPage(String id) {
         return memberMap.myPage(id);
+    }
+
+    @Override
+    public List<Member> admMember() {
+        return memberMap.admMember();
     }
 }
