@@ -25,9 +25,12 @@ public class VacationController {
     @GetMapping("/commute/vacation")
     public String vacation(Model model, String id, HttpSession session) {
         id = (String) session.getAttribute("id");
+        String cntVac = String.valueOf(vacationService.cntVac(id));
+
+        cntVac = cntVac == null?"0":cntVac;
 
         model.addAttribute("vacation", vacationService.listVac(id));
-        model.addAttribute("cntVac", vacationService.cntVac(id));
+        model.addAttribute("cntVac", cntVac);
 
         return "commute/vacation";
     }

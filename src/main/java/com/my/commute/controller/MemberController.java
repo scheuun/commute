@@ -47,14 +47,9 @@ public class MemberController {
     @RequestMapping(value="/member/myPage" , method = {RequestMethod.GET, RequestMethod.POST})
     public String myPage(Model model, String id, HttpSession session, HttpServletRequest httpServletRequest) {
 
-//        id = httpServletRequest.getParameter("id") != null?httpServletRequest.getParameter("id"):(String) session.getAttribute("id");
-
-        if(httpServletRequest.getParameter("id") != null) {
-            id = httpServletRequest.getParameter("id");
-        } else {
-            id = (String) session.getAttribute("id");
-        }
-        System.out.println(httpServletRequest.getParameter("id"));
+        id = httpServletRequest.getParameter("id") != null?httpServletRequest.getParameter("id"):(String) session.getAttribute("id");
+        System.out.println("session: " + session.getAttribute("id"));
+        System.out.println("form: " + httpServletRequest.getParameter("id"));
         model.addAttribute("member", memberService.myPage(id));
         return "member/myPage";
     }

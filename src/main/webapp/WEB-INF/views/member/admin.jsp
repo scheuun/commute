@@ -156,13 +156,8 @@
     }
 </style>
 <script>
-    $(document).ready(function () {
-        $('#chkBtn').click(function () {
-            var id = $('#id').val();
-            // myPageFrm.submit();
-            alert(id)
-        });
-    });
+
+
 </script>
 <body>
 <header>
@@ -203,15 +198,14 @@
                 </thead>
                 <tbody>
                     <c:forEach var="admin" items="${admin}">
-                        <form name='myPageFrm'method="post" action="/member/mypage">
+<%--                        <form id='pageFrm'method="post" action="/member/myPage">--%>
                         <tr style="width: 100rem">
                             <td>${admin.name}</td>
-                            <td id="id">${admin.id}<input type="text" value="${admin.id}"></td>
+                            <td><a type="submit" onclick="document.getElementById('pageFrm').submit();">${admin.id}<input id="id" type="hidden" value="${admin.id}"></a></td>
                             <td>${admin.phone}</td>
                             <td>${admin.department}</td>
                             <td>${admin.position}</td>
                             <td>${admin.regDate}</td>
-                            <td><button type='button' id="chkBtn" class='btn btn-primary'>조회</button></td>
                         </tr>
                         </form>
                     </c:forEach>
