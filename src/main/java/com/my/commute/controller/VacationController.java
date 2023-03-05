@@ -25,12 +25,8 @@ public class VacationController {
     @GetMapping("/commute/vacation")
     public String vacation(Model model, String id, HttpSession session) {
         id = (String) session.getAttribute("id");
-        String cntVac = String.valueOf(vacationService.cntVac(id));
-
-        cntVac = cntVac == null?"0":cntVac;
 
         model.addAttribute("vacation", vacationService.listVac(id));
-        model.addAttribute("cntVac", cntVac);
 
         return "commute/vacation";
     }
@@ -40,6 +36,18 @@ public class VacationController {
     public int regVac(Vacation vacation, HttpSession session) {
         vacation.setId((String) session.getAttribute("id"));
         return vacationService.regVac(vacation);
+    }
+
+    @PostMapping("/cntVac")
+    @ResponseBody
+    public float cntVac(String id) {
+       try {
+           float cntVac = vacationService.cntVac(id);
+           return cntVac;
+       }catch (NullPointerException e) {
+           float cntVac =0;
+           return cntVac;
+       }
     }
 
     @PostMapping("/cancelVac/{vacNum}")

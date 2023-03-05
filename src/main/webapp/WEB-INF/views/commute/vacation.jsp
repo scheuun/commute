@@ -188,6 +188,23 @@
             }
         });
 
+        $.ajax({
+            type:"POST",
+            url:"/cntVac",
+            data:{
+                id: $('#id').val()
+            },
+            success:function(cntVac){
+                alert(cntVac);
+            },
+            error: function (data) {
+                result:data
+                alert("에러");
+
+            },
+        });
+
+
         $('#cancelVac').click(function (){
             $.ajax({
                 url: '/cancelVac/' + $('#vacNum').val(),
