@@ -188,23 +188,6 @@
             }
         });
 
-        $.ajax({
-            type:"POST",
-            url:"/cntVac",
-            data:{
-                id: $('#id').val()
-            },
-            success:function(cntVac){
-                alert(cntVac);
-            },
-            error: function (data) {
-                result:data
-                alert("에러");
-
-            },
-        });
-
-
         $('#cancelVac').click(function (){
             $.ajax({
                 url: '/cancelVac/' + $('#vacNum').val(),
@@ -282,7 +265,7 @@
                     </c:forEach>
                 </tbody>
             </table>
-            <h5><b>총 휴가일수: ${cntVac}</b></h5>
+            <h5><b>잔여 휴가일수: ${cntVac}</b></h5>
         </div>
     </div>
 </section>

@@ -28,7 +28,7 @@ public class VacationServiceImpl implements VacationService {
     }
 
     @Override
-    public float cntVac(String id) {
+    public Double cntVac(String id) {
         return vacationMap.cntVac(id);
     }
 }

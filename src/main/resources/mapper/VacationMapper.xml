@@ -17,7 +17,7 @@
         where vacnum = #{vacNum};
     </delete>
 
-    <select id="cntVac" resultType="Long">
+    <select id="cntVac" resultType="Double">
         select totalvac - sum(day)
         from vacations
         where id = #{id} and agree = '승인';

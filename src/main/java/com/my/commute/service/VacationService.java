@@ -8,5 +8,5 @@ public interface VacationService {
     List<Vacation> listVac(String id);
     int regVac(Vacation vacation);
     void cancelVac(int vacNum);
-    float cntVac(String id);
+    Double cntVac(String id);
 }

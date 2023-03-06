@@ -198,16 +198,16 @@
                 </thead>
                 <tbody>
                     <c:forEach var="admin" items="${admin}">
-<%--                        <form id='pageFrm'method="post" action="/member/myPage">--%>
+
                         <tr style="width: 100rem">
                             <td>${admin.name}</td>
-                            <td><a type="submit" onclick="document.getElementById('pageFrm').submit();">${admin.id}<input id="id" type="hidden" value="${admin.id}"></a></td>
+                            <td><a type="submit" onclick="location.href='/member/myPage?id=${admin.id}'">${admin.id}</a></td>
                             <td>${admin.phone}</td>
                             <td>${admin.department}</td>
                             <td>${admin.position}</td>
                             <td>${admin.regDate}</td>
                         </tr>
-                        </form>
+
                     </c:forEach>
                 </tbody>
             </table>
