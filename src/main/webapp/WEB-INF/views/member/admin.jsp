@@ -198,7 +198,6 @@
                 </thead>
                 <tbody>
                     <c:forEach var="admin" items="${admin}">
-
                         <tr style="width: 100rem">
                             <td>${admin.name}</td>
                             <td><a type="submit" onclick="location.href='/member/myPage?id=${admin.id}'">${admin.id}</a></td>
@@ -207,7 +206,6 @@
                             <td>${admin.position}</td>
                             <td>${admin.regDate}</td>
                         </tr>
-
                     </c:forEach>
                 </tbody>
             </table>

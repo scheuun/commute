@@ -48,9 +48,9 @@ public class MemberController {
     public String myPage(Model model, String id, HttpSession session, HttpServletRequest httpServletRequest) {
 
         id = httpServletRequest.getParameter("id") != null?httpServletRequest.getParameter("id"):(String) session.getAttribute("id");
-        System.out.println("session: " + session.getAttribute("id"));
-        System.out.println("form: " + httpServletRequest.getParameter("id"));
+
         model.addAttribute("member", memberService.myPage(id));
+
         return "member/myPage";
     }
 

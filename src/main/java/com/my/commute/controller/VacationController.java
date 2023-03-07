@@ -29,7 +29,7 @@ public class VacationController {
 
         model.addAttribute("vacation", vacationService.listVac(id));
         model.addAttribute("cntVac", cntVac==null?0:cntVac);
-        System.out.println(model.getAttribute("cntVac"));
+
         return "commute/vacation";
     }
 

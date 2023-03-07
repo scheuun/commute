@@ -39,4 +39,10 @@
     <select id="admMember" resultType="Member">
         select * from members
     </select>
+
+    <select id="updatePwd">
+        update members
+        set pwd = #{pwd}
+        where id = #{id} and phone = #{phone}
+    </select>
 </mapper>
