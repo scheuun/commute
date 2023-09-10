@@ -22,4 +22,16 @@
         from vacations
         where id = #{id} and agree = '승인';
     </select>
+
+    <select id="admVac" resultType="Vacation">
+        select * from vacations
+        where agree = '미승인'
+        order by vacnum desc
+    </select>
+
+    <update id="agree">
+        update vacations
+        set agree = '승인'
+        where vacNum = #{vacnum}
+    </update>
 </mapper>

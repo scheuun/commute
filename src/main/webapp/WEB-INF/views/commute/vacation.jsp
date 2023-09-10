@@ -195,6 +195,14 @@
             });
             location.reload();
         })
+
+        $('#agreeVac').click(function (){
+            $.ajax({
+                url: '/agree/' + $('#vacNum').val(),
+                method: 'post'
+            });
+            location.reload();
+        })
     });
 </script>
 <body>
@@ -248,21 +256,26 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="vacation" items="${vacation}">
-                        <tr style="width: 100rem">
-                            <td>${vacation.reqDate}</td>
-                            <td>${vacation.vacDate}</td>
-                            <td>${vacation.day}</td>
-                            <td>${vacation.reason}</td>
+                <c:forEach var="vacation" items="${vacation}">
+                    <tr style="width: 100rem">
+                        <td>${vacation.reqDate}</td>
+                        <td>${vacation.vacDate}</td>
+                        <td>${vacation.day}</td>
+                        <td>${vacation.reason}</td>
+                        <c:if test="${sessionScope.id == 'admin'}">
+                            <td><a href="javascript:void(0);" id="agreeVac" style="color: red">${vacation.agree}</a></td>
+                        </c:if>
+                        <c:if test="${sessionScope.id ne 'admin'}">
                             <td>${vacation.agree}</td>
-                            <c:if test="${vacation.agree == '미승인'}">
-                                <td><a href="javascript:void(0);" id="cancelVac" style="color: red">취소</a><input id="vacNum" type="hidden" value="${vacation.vacNum}"/></td>
-                            </c:if>
-                            <c:if test="${vacation.agree == '승인'}">
-                                <td></td>
-                            </c:if>
-                        </tr>
-                    </c:forEach>
+                        </c:if>
+                        <c:if test="${vacation.agree == '미승인'}">
+                            <td><a href="javascript:void(0);" id="cancelVac" style="color: red">취소</a><input id="vacNum" type="hidden" value="${vacation.vacNum}"/></td>
+                        </c:if>
+                        <c:if test="${vacation.agree == '승인'}">
+                            <td></td>
+                        </c:if>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
             <h5><b>잔여 휴가일수: ${cntVac}</b></h5>

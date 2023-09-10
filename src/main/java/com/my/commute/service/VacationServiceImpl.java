@@ -1,6 +1,7 @@
 package com.my.commute.service;
 
 import com.my.commute.dao.map.VacationMap;
+import com.my.commute.model.Commute;
 import com.my.commute.model.Vacation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,4 +32,16 @@ public class VacationServiceImpl implements VacationService {
     public Double cntVac(String id) {
         return vacationMap.cntVac(id);
     }
+
+    @Override
+    public List<Vacation> admVac(String agree) {
+        return vacationMap.admVac(agree);
+    }
+
+    @Override
+    public void agree(int vacNum) {
+        vacationMap.agree(vacNum);
+    }
+
+
 }

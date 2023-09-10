@@ -26,8 +26,11 @@ public class VacationController {
     public String vacation(Model model, String id, HttpSession session) {
         id = (String) session.getAttribute("id");
         Double cntVac = vacationService.cntVac(id);
+        String agree = "미승인";
 
-        model.addAttribute("vacation", vacationService.listVac(id));
+        System.out.println(id);
+
+        model.addAttribute("vacation", id.equals("admin")?vacationService.admVac(agree):vacationService.listVac(id));
         model.addAttribute("cntVac", cntVac==null?0:cntVac);
 
         return "commute/vacation";
@@ -44,5 +47,11 @@ public class VacationController {
     @ResponseBody
     public void cancelVac(@PathVariable int vacNum) {
         vacationService.cancelVac(vacNum);
+    }
+
+    @PostMapping("/agree/{vacNum}")
+    @ResponseBody
+    public void agree(@PathVariable int vacNum) {
+        vacationService.agree(vacNum);
     }
 }
